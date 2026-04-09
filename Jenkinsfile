@@ -14,7 +14,7 @@ pipeline {
                 echo 'Running SonarQube security scan...'
                 sh '''
                     pip install pysonar --break-system-packages
-                    pysonar \
+                    python3 -m pysonar \
                       --sonar-host-url=http://sonarqube:9000 \
                       --sonar-token=sqp_3fa5f38a254be3250e52d3325dc9136c314e93fc \
                       --sonar-project-key=devops-project
