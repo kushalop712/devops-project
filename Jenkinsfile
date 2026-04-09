@@ -8,6 +8,19 @@ pipeline {
                 checkout scm
             }
         }
+
+        stage('Security Scan') {
+            steps {
+                echo 'Running SonarQube security scan...'
+                sh '''
+                    pip install pysonar --break-system-packages
+                    pysonar \
+                      --sonar-host-url=http://sonarqube:9000 \
+                      --sonar-token=sqp_3fa5f38a254be3250e52d3325dc9136c314e93fc \
+                      --sonar-project-key=devops-project
+                '''
+            }
+        }
         
         stage('Build Docker Image') {
             steps {
@@ -19,7 +32,11 @@ pipeline {
         stage('Run App') {
             steps {
                 echo 'Running the container...'
-                sh 'docker run -d -p 5000:5000 --name devops-app devops-project'
+                sh '''
+                    docker stop devops-app || true
+                    docker rm devops-app || true
+                    docker run -d -p 5000:5000 --name devops-app devops-project
+                '''
             }
         }
     }
