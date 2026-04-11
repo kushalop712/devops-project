@@ -1,0 +1,26 @@
+---
+- name: Deploy DevOps Project
+  hosts: localhost
+  connection: local
+  become: false
+
+  tasks:
+    - name: Stop old container
+      shell: docker stop devops-app || true
+
+    - name: Remove old container
+      shell: docker rm devops-app || true
+
+    - name: Pull latest image
+      shell: docker pull devops-project || true
+
+    - name: Run new container
+      shell: docker run -d -p 5000:5000 --name devops-app devops-project
+
+    - name: Verify app is running
+      shell: docker ps | grep devops-app
+      register: result
+
+    - name: Print result
+      debug:
+        msg: "{{ result.stdout }}"

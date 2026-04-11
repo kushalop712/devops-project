@@ -29,15 +29,11 @@ pipeline {
                 sh 'docker build -t devops-project .'
             }
         }
-        
-        stage('Run App') {
+
+        stage('Deploy with Ansible') {
             steps {
-                echo 'Running the container...'
-                sh '''
-                    docker stop devops-app || true
-                    docker rm devops-app || true
-                    docker run -d -p 5000:5000 --name devops-app devops-project
-                '''
+                echo 'Deploying with Ansible...'
+                sh 'ansible-playbook deploy.yml'
             }
         }
     }
