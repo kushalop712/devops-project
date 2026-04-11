@@ -33,7 +33,11 @@ pipeline {
         stage('Deploy with Ansible') {
             steps {
                 echo 'Deploying with Ansible...'
-                sh 'ansible-playbook deploy.yml'
+                sh '''
+                    export PATH=$PATH:/var/jenkins_home/.local/bin
+                    pip install ansible --break-system-packages
+                    python3 -m ansible playbook -i localhost, deploy.yml
+                '''
             }
         }
     }
