@@ -16,7 +16,7 @@ pipeline {
                     export PATH=$PATH:/var/jenkins_home/.local/bin
                     pip install pysonar --break-system-packages
                     python3 /var/jenkins_home/.local/lib/python3.*/site-packages/pysonar/__main__.py \
-                      --sonar-host-url=http://172.17.0.3:9000 \
+                      --sonar-host-url=http://172.18.0.3:9000 \
                       --sonar-token=sqp_3fa5f38a254be3250e52d3325dc9136c314e93fc \
                       --sonar-project-key=devops-project
                 '''
