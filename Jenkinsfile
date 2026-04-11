@@ -18,7 +18,8 @@ pipeline {
                     python3 /var/jenkins_home/.local/lib/python3.*/site-packages/pysonar/__main__.py \
                       --sonar-host-url=http://172.18.0.3:9000 \
                       --sonar-token=sqa_2487e6f461c73ba6658165f902f6d9ee3b3a9049 \
-                      --sonar-project-key=devops-project
+                      --sonar-project-key=devops-project \
+                      --verbose
                 '''
             }
         }
